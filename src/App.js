@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import './App.css'
 
 const AppContext = React.createContext()
@@ -59,16 +59,15 @@ class ProductRow extends React.Component {
         }
 }
 
-class ProductTable extends React.Component {
-    render() {
-		/*
-          const filterText = this.props.filterText;
-          const inStockOnly = this.props.inStockOnly;
+const ProductTable = () => {
+          const context = useContext(AppContext)
+          const filterText = context.filterText;
+          const inStockOnly = context.inStockOnly;
 
           const rows = [];
           let lastCategory = null;
 
-          this.props.products.forEach((product) => {
+          context.products.PRODUCTS.forEach((product) => {
                   if (product.name.indexOf(filterText) === -1) {
                             return;
                           }
@@ -77,12 +76,15 @@ class ProductTable extends React.Component {
                           }
                   if (product.category !== lastCategory) {
                             rows.push(
+
+                                        // Props: Level 3
                                         <ProductCategoryRow
                                           category={product.category}
                                           key={product.category} />
                                       );
                           }
                   rows.push(
+                            // Props: Level 3
                             <ProductRow
                               product={product}
                               key={product.name}
@@ -90,10 +92,8 @@ class ProductTable extends React.Component {
                           );
                   lastCategory = product.category;
                 });
-*/
-          return ( 
-					<div></div>
-			   /*
+
+          return (
                   <table>
                     <thead>
                       <tr>
@@ -103,9 +103,7 @@ class ProductTable extends React.Component {
                     </thead>
                     <tbody>{rows}</tbody>
                   </table>
-				*/ 
                 );
-        }
 }
 
 class SearchBar extends React.Component {
