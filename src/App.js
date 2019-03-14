@@ -61,6 +61,7 @@ class ProductRow extends React.Component {
 
 class ProductTable extends React.Component {
     render() {
+		/*
           const filterText = this.props.filterText;
           const inStockOnly = this.props.inStockOnly;
 
@@ -89,8 +90,10 @@ class ProductTable extends React.Component {
                           );
                   lastCategory = product.category;
                 });
-
-          return (
+*/
+          return ( 
+					<div></div>
+			   /*
                   <table>
                     <thead>
                       <tr>
@@ -100,11 +103,13 @@ class ProductTable extends React.Component {
                     </thead>
                     <tbody>{rows}</tbody>
                   </table>
+				*/ 
                 );
         }
 }
 
 class SearchBar extends React.Component {
+/*
     constructor(props) {
           super(props);
           this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
@@ -118,9 +123,12 @@ class SearchBar extends React.Component {
     handleInStockChange(e) {
           this.props.onInStockChange(e.target.checked);
         }
+*/
     
     render() {
-          return (
+          return ( 
+					<div></div>
+/*
                   <form>
                     <input
                       type="text"
@@ -138,6 +146,7 @@ class SearchBar extends React.Component {
                       Only show products in stock
                     </p>
                   </form>
+*/
                 );
         }
 }
@@ -154,7 +163,10 @@ const PRODUCTS = [
 class App extends Component {
   render() {
     return (
-      <ProductTableProvider products={PRODUCTS} />
+      <ProductTableProvider>
+        <SearchBar />
+        <ProductTable />
+      </ProductTableProvider>
     );
   }
 }
