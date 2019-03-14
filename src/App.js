@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
 
+const AppContext = React.createContext()
+
 // Composability: Level 3
 class ProductCategoryRow extends React.Component {
     render() {
