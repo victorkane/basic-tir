@@ -1,17 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
 
-class App extends Component {
-  render() {
-    return (
-      // Props: Level 1
-      <FilterableProductTable products={PRODUCTS} />
-    );
-  }
-}
-
-export default App;
-
 // Composability: Level 3
 class ProductCategoryRow extends React.Component {
     render() {
@@ -196,4 +185,15 @@ const PRODUCTS = [
     {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
     {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
 ];
+
+class App extends Component {
+  render() {
+    return (
+      // Props: Level 1
+      <FilterableProductTable products={PRODUCTS} />
+    );
+  }
+}
+
+export default App;
 
