@@ -1,8 +1,22 @@
-import React, { Component, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import './App.css'
 
 const AppContext = React.createContext()
 
+const ProductTableProvider = (props) => {
+    const [filterText, setFilterText] = useState('')
+    const [inStockOnly, setInStockOnly] = useState(false)
+    const [products] = useState({PRODUCTS})
+    return (
+          <AppContext.Provider value={{filterText: filterText, inStockOnly: inStockOnly, products: products, handleFilterTextChange: (filterText) => {setFilterText(filterText)}, handleInStockChange: (inStockOnly) => {setInStockOnly(inStockOnly)} }}>
+          <div>
+            {props.children}
+          </div>
+          </AppContext.Provider>
+        )
+}
+
+/*
 class ProductTableProvider extends React.Component {
     constructor(props) {
       super(props);
@@ -27,7 +41,18 @@ class ProductTableProvider extends React.Component {
       );
     }
 }
+*/
 
+// returning JSX only with parentheses (JSX)
+// // const ProductRow = (props) => (JSX)
+const ProductCategoryRow = (props) => (
+                  <tr>
+                    <th colSpan="2">
+                      {props.category}
+                    </th>
+                  </tr>
+)
+/*
 class ProductCategoryRow extends React.Component {
     render() {
           const category = this.props.category;
@@ -40,7 +65,26 @@ class ProductCategoryRow extends React.Component {
                 );
         }
 }
+*/
 
+// function: code + JSX (required!) with {{//code; return(JSX)}}
+// // const ProductRow = (props) => { {//code; return(JSX)}}
+const ProductRow = (props) => {
+          const product = props.product;
+          const name = product.stocked ?
+              product.name :
+              <span style={{color: 'red'}}>
+                {product.name}
+            </span>;
+          return (
+                  <tr>
+                    <td>{name}</td>
+                    <td>{product.price}</td>
+                  </tr>
+                )
+}
+
+/*
 class ProductRow extends React.Component {
     render() {
           const product = this.props.product;
@@ -58,6 +102,7 @@ class ProductRow extends React.Component {
                 );
         }
 }
+*/
 
 const ProductTable = () => {
           const context = useContext(AppContext)
@@ -106,6 +151,31 @@ const ProductTable = () => {
                 );
 }
 
+const SearchBar = () => {
+  const context = useContext(AppContext)
+          return ( 
+                  <form>
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={context.filterText}
+                      onChange={(e) => context.handleFilterTextChange(e.target.value)}
+                    />
+                    <p>
+                      <input
+                        type="checkbox"
+                        checked={context.inStockOnly}
+                        onChange={(e) => context.handleInStockChange(e.target.checked)}
+                      />
+                      {' '}
+                      Only show products in stock
+                    </p>
+                  </form>
+                )
+
+}
+
+/*
 class SearchBar extends React.Component {
     render() {
           return ( 
@@ -133,6 +203,7 @@ class SearchBar extends React.Component {
                 )
         }
 }
+*/
 
 const PRODUCTS = [
     {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
@@ -143,6 +214,13 @@ const PRODUCTS = [
     {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
 ];
 
+const App = () => (
+      <ProductTableProvider>
+        <SearchBar />
+        <ProductTable />
+      </ProductTableProvider>
+)
+/*
 class App extends Component {
   render() {
     return (
@@ -153,6 +231,7 @@ class App extends Component {
     );
   }
 }
+*/
 
 export default App;
 
