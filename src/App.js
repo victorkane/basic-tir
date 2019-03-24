@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import './App.css'
 
 const AppContext = React.createContext()
@@ -153,7 +153,30 @@ const ProductTable = () => {
 
 const SearchBar = () => {
   const context = useContext(AppContext)
+  const [theTime, setTheTime] = useState(new Date())
+  // componentDidMount and componentWillUnmount in one fell swoop
+  useEffect(() => {
+  // did mount
+  const ticker = setInterval( () => seizeTheTime(), 1000 );
+    // will unmount (with return)
+    return function cleanup() {
+      clearInterval(ticker);
+    }
+  })
+
+  function seizeTheTime () {
+    setTheTime(new Date())
+  }
           return ( 
+            <React.Fragment>
+                  <div className="theThinkingClock">
+                    <h4>Welcome back!</h4>
+                    <h5>It is {(typeof theTime !== 'undefined' && theTime !== null) ?
+                                 theTime.toLocaleTimeString(): 'time to go'
+                              }
+                    </h5>
+                  </div>
+
                   <form>
                     <input
                       type="text"
@@ -171,6 +194,7 @@ const SearchBar = () => {
                       Only show products in stock
                     </p>
                   </form>
+            </React.Fragment>
                 )
 
 }
